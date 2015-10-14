@@ -4,3 +4,5 @@
 *.xpi
 #vim swap files
 *.swp
+#bak files
+*.bak
