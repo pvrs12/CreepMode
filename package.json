@@ -1,0 +1,12 @@
+{
+  "title": "CreepMode",
+  "name": "creepmode",
+  "version": "0.0.1",
+  "description": "An addon designed for facebook creeps",
+  "main": "index.js",
+  "author": "pvrs12",
+  "engines": {
+    "firefox": ">=38.0a1"
+  },
+  "license": "MIT"
+}
