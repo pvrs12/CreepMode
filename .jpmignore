@@ -1,0 +1,6 @@
+#gimp edit files
+*.xcf
+#packages
+*.xpi
+#vim swap files
+*.swp
