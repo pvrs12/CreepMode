@@ -2,3 +2,5 @@
 *.bak
 #vim swp files
 *.swp
+#addon packages
+*.xpi
