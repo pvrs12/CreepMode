@@ -36,14 +36,17 @@ var button = ToggleButton({
 		if(state.checked){
 			button.state(button,enabledState);
 			emitAllWorkers(workers,'enabled');
+			enabled = true;
 		} else {
 			button.state(button,disabledState);
 			emitAllWorkers(workers,'disabled');
+			enabled = false;
 		}
 	}
 });
 
 var workers = [];
+var enabled = false;
 
 function detachWorker(worker, workerArray){
 	var index = workerArray.indexOf(worker);
@@ -53,8 +56,6 @@ function detachWorker(worker, workerArray){
 }
 
 function emitAllWorkers(workerArray, func){
-	console.log("emitting '"+func+"' to all workers");
-	console.log("there are "+workerArray.length+" workers");
 	for(var i = 0; i< workerArray.length;++i){
 		workerArray[i].port.emit(func);
 	}
@@ -65,14 +66,19 @@ pageMod.PageMod({
 	include:'*.facebook.com',
 	contentScriptFile:'./creepmode.js',
 	onAttach: function(worker){
+		console.log(enabled);
+
 		workers.push(worker);
 		worker.on('detach',function(){
 			detachWorker(this,workers);
 		});
 
-		if(button.checked){
+		if(enabled){
+			console.log('enabled on attach');
 			worker.port.emit('enabled');
-		} 
+		} else {
+			console.log('disabled on attach');
+		}
 	}
 });
 

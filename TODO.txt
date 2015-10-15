@@ -1,5 +1,6 @@
 DONE:
 	Fix for ajax XMLHttpRequests (currently doesn't update when DOM is changed dynamically)
+	Fix loading when facebook is loaded after CreepMode is on (doesn't start creeping!)
 
 TODO:
-	Fix loading when facebook is loaded after CreepMode is on (doesn't start creeping!)
+	
