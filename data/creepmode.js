@@ -1,5 +1,3 @@
-var oldInnerHTML = window.document.body.innerHTML;
-
 var modifying = false;
 var enabled = false;
 
@@ -24,24 +22,17 @@ self.port.on('enabled',function(){
 
 document.body.addEventListener("DOMSubtreeModified",function(){
 	if(!modifying){
-//		console.log('tree modified! '+new Date());
 		hideStuff();
 	}
 },false);
 
 function creepModeOff(){
 	enabled = false;
-	modifying=true;
-	window.document.body.innerHTML=oldInnerHTML;
-	modifying=false;
-//	console.log("Creep Mode turned off");
+	showStuff();
 }
 
 function creepModeOn(){
 	enabled = true;
-	oldInnerHTML = window.document.body.innerHTML;
-//	console.log("Creep Mode turned on");
-
 	hideStuff();
 }
 
@@ -49,11 +40,18 @@ function hideStuff(){
 	if(enabled){
 		modifying=true;
 		for(var i=0;i<hideElements.length;++i){
-//			console.log('hiding \''+hideElements[i]+'\'');
 			hideClassElements(hideElements[i]);
 		}
 		modifying=false;
 	}
+}
+
+function showStuff(){
+	modifying=true;
+	for(var i=0;i<hideElements.length;++i){
+		showClassElements(hideElements[i]);
+	}
+	modifying=false;
 }
 
 function hideClassElements(className){
@@ -61,5 +59,13 @@ function hideClassElements(className){
 	
 	for(var i=0;i<elements.length;++i){
 		elements[i].style.display="none";
+	}
+}
+
+function showClassElements(className){
+	var elements = document.getElementsByClassName(className);
+	
+	for(var i=0;i<elements.length;++i){
+		elements[i].style.display="inline";
 	}
 }
