@@ -1,0 +1,1 @@
+Fix for ajax XMLHttpRequests (currently doesn't update when DOM is changed dynamically)
