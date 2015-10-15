@@ -34,13 +34,13 @@ function creepModeOff(){
 	modifying=true;
 	window.document.body.innerHTML=oldInnerHTML;
 	modifying=false;
-	console.log("Creep Mode turned off");
+//	console.log("Creep Mode turned off");
 }
 
 function creepModeOn(){
 	enabled = true;
 	oldInnerHTML = window.document.body.innerHTML;
-	console.log("Creep Mode turned on");
+//	console.log("Creep Mode turned on");
 
 	hideStuff();
 }

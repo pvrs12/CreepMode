@@ -32,7 +32,7 @@ var button = ToggleButton({
 		"64":"./icons/disabled-64.png",
 	},
 	onChange:function(state){
-		console.log("Button State=",state.checked);
+//		console.log("Button State=",state.checked);
 		if(state.checked){
 			button.state(button,enabledState);
 			emitAllWorkers(workers,'enabled');
@@ -66,7 +66,7 @@ pageMod.PageMod({
 	include:'*.facebook.com',
 	contentScriptFile:'./creepmode.js',
 	onAttach: function(worker){
-		console.log(enabled);
+//		console.log(enabled);
 
 		workers.push(worker);
 		worker.on('detach',function(){
@@ -74,10 +74,10 @@ pageMod.PageMod({
 		});
 
 		if(enabled){
-			console.log('enabled on attach');
+//			console.log('enabled on attach');
 			worker.port.emit('enabled');
 		} else {
-			console.log('disabled on attach');
+//			console.log('disabled on attach');
 		}
 	}
 });
