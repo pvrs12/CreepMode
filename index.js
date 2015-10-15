@@ -1,8 +1,8 @@
 var self = require('sdk/self');
 var data = self.data;
-var pageMod = require("sdk/page-mod");
+var pageMod = require('sdk/page-mod');
 
-var { ActionButton } = require('sdk/ui/button/action');
+var { ToggleButton } = require('sdk/ui/button/toggle');
 
 //states for the button
 const enabledState = {
@@ -23,7 +23,7 @@ const disabledState={
 	},
 }
 
-var button = ActionButton({
+var button = ToggleButton({
 	id: "toggle-button",
 	label: "Turn CreepMode On",
 	icon:{
@@ -31,33 +31,48 @@ var button = ActionButton({
 		"32":"./icons/disabled-32.png",
 		"64":"./icons/disabled-64.png",
 	},
-	onClick:function(state){
-		console.log("pushed!");
-		if(button.label="Turn CreepMode On"){
+	onChange:function(state){
+		console.log("Button State=",state.checked);
+		if(state.checked){
 			button.state(button,enabledState);
+			emitAllWorkers(workers,'enabled');
 		} else {
-			button.date(button,disabledSatate);
+			button.state(button,disabledState);
+			emitAllWorkers(workers,'disabled');
 		}
 	}
 });
 
-self.port.on("getElements", function(tag) {
-	var elements = document.getElementsByTagName(tag);
-	for(var i =0;i<elements.length;++i){
-		self.port.emit("gotElement",elements[i].innerHTML);
+var workers = [];
+
+function detachWorker(worker, workerArray){
+	var index = workerArray.indexOf(worker);
+	if(index != -1){
+		workerArray.splice(index,1);
 	}
-});
+}
+
+function emitAllWorkers(workerArray, func){
+	console.log("emitting '"+func+"' to all workers");
+	console.log("there are "+workerArray.length+" workers");
+	for(var i = 0; i< workerArray.length;++i){
+		workerArray[i].port.emit(func);
+	}
+}
 
 //pagemod facebook
 pageMod.PageMod({
-	include:"*.facebook.com",
-	contentScriptFile:data.url("element-getter.js"),
+	include:'*.facebook.com',
+	contentScriptFile:'./creepmode.js',
 	onAttach: function(worker){
-		worker.port.emit("getElements","a");
-		worker.port.on("gotElement",function(element,content){
-			content+= 'style="display:none;"';
-			element.innerHTML=content;
-			console.log("hidden <a> tag");
+		workers.push(worker);
+		worker.on('detach',function(){
+			detachWorker(this,workers);
 		});
+
+		if(button.checked){
+			worker.port.emit('enabled');
+		} 
 	}
 });
+

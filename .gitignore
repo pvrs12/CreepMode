@@ -1,2 +1,4 @@
 #backup files
 *.bak
+#vim swp files
+*.swp
