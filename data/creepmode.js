@@ -10,6 +10,7 @@ var hideElements=[
 	'UFILikeLink',//likelink
 	'FriendRequestAdd',//friendrequest button
 	'addButton',//friendrequest button
+	'pageLikeButton', //like button on pages
 ]
 
 self.port.on('disabled',function(){
