@@ -1,7 +1,7 @@
 {
   "title": "CreepMode",
   "name": "creepmode",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "description":"This addon hides all 'interaction' elements from facebook allowing you to creep without fretting about accidentally 'liking' your crush's photos or poking a stranger.\nSimply click the button and browse facebook worry free!",
   "main": "index.js",
   "author": "pvrs12",
