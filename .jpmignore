@@ -6,3 +6,9 @@
 *.swp
 #bak files
 *.bak
+#git
+*.git
+#gitignore
+.gitignore
+#jpmignore
+.jpmignore
